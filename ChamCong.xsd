@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ChamCong"
+    targetNamespace="http://tempuri.org/ChamCong.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/ChamCong.xsd"
+    xmlns:mstns="http://tempuri.org/ChamCong.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:simpleType name="maType">
+		<xs:restriction base="xs:ID">
+			<xs:minLength value="5"/>
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="caLamViecType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="C1"/>
+			<xs:enumeration value="C2"/>
+			<xs:enumeration value="C3"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="nhanVienType">
+		<xs:sequence>
+			<xs:element name="CaLamViec" type="caLamViecType" />
+			<xs:element name="GioVao" type="xs:time"/> 
+			<xs:element name="GioRa" type="xs:time"/>
+		</xs:sequence>
+		<xs:attribute name="MaNV" type="maType" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="ngayLamViecType">
+		<xs:sequence>
+			<xs:element name="NhanVien" type="nhanVienType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Ngay" type="xs:date" use="required"/>
+	</xs:complexType>
+
+	<xs:element name="ChamCong">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="NgayLamViec" type="ngayLamViecType" maxOccurs="31"/>
+			</xs:sequence>
+			<xs:attribute name="BoPhan" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

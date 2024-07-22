@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DanhSach"
+    targetNamespace="http://tempuri.org/DanhSach.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/DanhSach.xsd"
+    xmlns:mstns="http://tempuri.org/DanhSach.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:complexType name="nhanVienType">
+		<xs:sequence>
+			<xs:element name="MaNV" type="xs:string"></xs:element>
+			<xs:element name="HoTen" type="xs:string"></xs:element>
+			<xs:element name="NgaySinh" type="xs:date"></xs:element>
+			<xs:element name="GioiTinh" type="xs:string"></xs:element>
+			<xs:element name="NgayCong" type="xs:int"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="donViType">
+		<xs:sequence>
+			<xs:element name="MaDV" type ="xs:string"/>
+			<xs:element name="TenDV" type="xs:string"></xs:element>
+			<xs:element name="DienThoai" type ="xs:int"></xs:element>
+			<xs:element name="NhanVien" type="nhanVienType"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="congTyType">
+		<xs:sequence>
+			<xs:element name="DonVi" type="donViType"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="TenCT" type="xs:string" use="required"></xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="dSType">
+		<xs:sequence>
+			<xs:element name="CongTy" type="congTyType" minOccurs="2" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="DS" type="dSType"></xs:element>
+</xs:schema>

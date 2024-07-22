@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="QuanDoanh"
+    targetNamespace="http://tempuri.org/QuanDoanh.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/QuanDoanh.xsd"
+    xmlns:mstns="http://tempuri.org/QuanDoanh.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<!--Ràng buộc cho mã-->
+	<xs:simpleType name="maType">
+		<!--restriction là ràng buộc của phần tử-->
+		<xs:restriction base="xs:ID">
+			<!--pattern là so sánh chuỗi với mẫu-->
+			<xs:pattern value="[a-zA-Z]{2}[0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!--Ràng buộc về tên tiểu đội-->
+	<xs:simpleType name="tenTieuDoiType">
+		<xs:restriction base="xs:string">
+		<!--Ép phần tử đấy chỉ nhận các chuỗi là enumeration-->
+			<xs:enumeration value="Hậu Cần"/>
+			<xs:enumeration value="Giải Trí"/>
+			<xs:enumeration value="Cứu Nạn"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!--Ràng buộc về tên chiến sĩ và tiểu sử-->
+	<xs:simpleType name="chuoiType">
+		<xs:restriction base="xs:string">
+			<!--maxLength là độ dài tối đa chuỗi có thể nhận đc-->
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!--Ràng buộc về tuổi-->
+	<xs:simpleType name="tuoiType">
+		<xs:restriction base="xs:int">
+			<!--minInclusive có tác dụng là giá trị tối thiểu của phần tử bảo gồm cả phần tử nhỏ nhất đấy-->
+			<xs:minInclusive value="18"/>
+			<xs:maxInclusive value="27"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!--Ràng buộc về ngày nhập ngũ-->
+	<xs:simpleType name="ngayNhapNguType">
+		<xs:restriction base="xs:date">
+			<!--chỉ lấy giá trị trong min và max-->
+			<xs:minExclusive value="2011-01-01"></xs:minExclusive>
+			<xs:maxExclusive value="2021-01-01"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!--Rang buộc về lương-->
+	<xs:simpleType name="luongType">
+		<xs:restriction base="xs:decimal">
+			<!--fractionDigits có tác dụng là sau dấu phẩy có 1 số thực chỉ tối đa có 2 số-->
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!--Kiểu phức tạp chiến sĩ-->
+	<xs:complexType name="chienSiType">
+		<!--sequence là cho các phần tử con nó theo đúng thứ tự cho trc-->
+		<xs:sequence>
+			<xs:element name="Ten" type="chuoiType"/>
+			<xs:element name="Tuoi" type="tuoiType"/>
+			<xs:element name="NgayNhapNgu" type="ngayNhapNguType"/>
+			<xs:element name="TieuSu" type="chuoiType"/>
+			<xs:element name="Luong" type="luongType"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!--Kiểu phức tạp tiểu đội-->
+	<xs:complexType name="tieuDoiType">
+		<xs:sequence>
+			<xs:element name="Ten" type="tenTieuDoiType"/>
+			<xs:element name="ChienSi" type="chienSiType" minOccurs="0" maxOccurs="10"/>
+		</xs:sequence>
+		<!--Sau sequence là chỗ ghi cac thuộc tính-->
+		<!--use có giá trị required là ép thuộc tính đấy phải xh-->
+		<xs:attribute name="ma" type="maType" use="required"/>
+	</xs:complexType>
+	
+	<!--Kiểu phức tạp quân doanh-->
+	<xs:complexType name="quanDoanhType">
+		<xs:sequence>
+			<xs:element name="TieuDoi" type="tieuDoiType" maxOccurs="5"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!--Kiểu quân doanh-->
+	<xs:element name="QuanDoanh" type="quanDoanhType"/>
+</xs:schema>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DuBaoThoiTiet"
+    targetNamespace="http://tempuri.org/DuBaoThoiTiet.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/DuBaoThoiTiet.xsd"
+    xmlns:mstns="http://tempuri.org/DuBaoThoiTiet.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:simpleType name="maType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{6}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="kieuThoiTietType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Nang"/>
+			<xs:enumeration value="Mua"/>
+			<xs:enumeration value="May"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="nhietDoType">
+		<xs:restriction base="xs:int">
+			<xs:minExclusive value="10"/>
+			<xs:maxExclusive value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="khuVucType">
+		<xs:sequence>
+			<xs:element name="KieuThoiTiet" type="kieuThoiTietType"/>
+			<xs:element name="NhietDoCaoNhat" type="nhietDoType"/>
+			<xs:element name="NhietDoThapNhat" type="nhietDoType"/>
+		</xs:sequence>
+		<xs:attribute name="ma" type="maType" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="thoiTietType">
+		<xs:sequence>
+			<xs:element name="KhuVuc" type="khuVucType" maxOccurs="3"/>
+		</xs:sequence>
+		<xs:attribute name="ngay" type="xs:date"/>
+	</xs:complexType>
+
+	<xs:complexType name="duBaoBaoThoiTietType">
+		<xs:sequence>
+			<xs:element name="ThoiTiet" type="thoiTietType" maxOccurs="30"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="DuBaoThoiTiet" type="duBaoBaoThoiTietType"/>
+</xs:schema>
